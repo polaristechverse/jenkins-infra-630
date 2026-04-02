@@ -21,7 +21,20 @@ pipeline {
                     expression { return params.PACKER_BUILD =='yes'}
                 }
             steps{
-                packerbuild()
+                packerBuild()
+            }
+        }
+        stage('capture amiid'){
+            when{
+                expression { return params.PACKER_BUILD == 'yes' }
+            }
+            steps{
+                amicapture()
+            }
+        }
+        stage('capture the latest ami'){
+            steps {
+                latestami()
             }
         }
     }
