@@ -16,11 +16,11 @@
             "source_ami": "{{user `source_ami`}}",
             "instance_type": "{{user `instance_type`}}",
             "ssh_username": "ubuntu",
-            "ami_name": "Autotfimage-{{isotime | clean_resource_name}}",
+            "ami_name": "AWSB2WeekendImage-{{isotime | clean_resource_name}}",
             "vpc_id": "{{user `vpc_id`}}",
             "subnet_id": "{{user `subnet_id`}}",
             "tags": {
-                "Name": "Autotfimage-{{isotime | clean_resource_name}}"
+                "Name": "AWSB3WeekendImage-{{isotime | clean_resource_name}}"
             }
         }
     ],
@@ -29,11 +29,19 @@
             "type": "shell",
             "inline": [
                 "sudo apt update -y",
-                "sudo apt install openjdk-17-jdk -y",
-                "sudo apt install maven wget -y",
+                "sudo apt install unzip jq nginx -y",
+                "sudo apt install git -y",
+                "sudo git clone https://github.com/chaitanyadurgasoft/website.git",
+                "sudo rm -rf /var/www/html/index.nginx-debian.html",
+                "sudo cp website/index.html /var/www/html/index.nginx-debian.html",
+                "sudo cp website/aws.png /var/www/html/aws.png",
+                "sudo cp website/cloud.jpg /var/www/html/cloud.jpg",
+                "sudo service nginx start",
+                "sudo systemctl enable nginx",
                 "curl https://get.docker.com | bash",
-                "sudo usermod -aG docker ubuntu",
-                "sudo usermod -aG root ubuntu"
+                "curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip ",
+                "unzip awscliv2.zip",
+                "sudo ./aws/install"
             ]
         }
     ],
