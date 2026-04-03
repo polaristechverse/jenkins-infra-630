@@ -5,6 +5,8 @@ pipeline {
     }
     parameters {
         choice(name: 'PACKER_BUILD', choices: ['no', 'yes'], description: 'Choose an action')
+        choice(name: 'TERRAFORM_APPLY', choices: ['no', 'yes'], description: 'Choose an action')
+        choice(name: 'TERRAFORM_DESTROY', choices: ['no', 'yes'], description: 'Choose an action')
     }
     stages{
         stage('checking the software'){
@@ -35,6 +37,27 @@ pipeline {
         stage('capture the latest ami'){
             steps {
                 latestami()
+            }
+        }
+        stage('Terraform_Plan') {
+            steps{
+                terraformplan()
+            }
+        }
+        stage('Terraform_Apply'){
+                when{
+                expression { return params.TERRAFORM_APPLY == 'yes' }
+            }
+            steps{
+                sh 'terraform apply --auto-approve'
+            }
+        }
+        stage('Terraform_Destory'){
+            when{
+                expression { return params.TERRAFORM_DESTROY == 'yes '}
+            }
+            steps {
+                sh 'terraform destory --auto-approve'
             }
         }
     }
