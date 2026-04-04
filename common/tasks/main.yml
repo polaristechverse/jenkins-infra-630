@@ -38,15 +38,10 @@
     name: docker
     state: started
     enabled: yes
-# Get latest cri-dockerd version
-- name: get cri-dockerd version
-  shell: curl -s https://api.github.com/repos/Mirantis/cri-dockerd/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//g'
-  register: cri_version
-  changed_when: false
 # Download cri-dockerd
 - name: download cri-dockerd
   get_url:
-    url: "https://github.com/Mirantis/cri-dockerd/releases/download/v{{ cri_version.stdout }}/cri-dockerd-{{ cri_version.stdout }}.amd64.tgz"
+    url: "https://github.com/Mirantis/cri-dockerd/releases/download/v0.3.24/cri-dockerd-0.3.24.amd64.tgz"
     dest: /tmp/cri-dockerd.tgz
   when: not ansible_facts['distribution'] is undefined
 # Extract cri-dockerd
