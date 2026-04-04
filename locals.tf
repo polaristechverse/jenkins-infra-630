@@ -14,8 +14,8 @@ locals {
     },
     {
       port        = 8443
-      description = "port for secure HTTPS",
-    }
+      description = "port for secure HTTPS"
+    },
      {
       port        = 6443
       description = "port for secure k8s connection"
