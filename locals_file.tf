@@ -6,5 +6,5 @@ resource "local_file" "hosts_cfg" {
       server3 = aws_instance.JenkinsInstance.2.public_ip
     }
   )
-  filename = "invfile"
+  filename = "inventory/hosts.ini"
 }

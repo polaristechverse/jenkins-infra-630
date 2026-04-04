@@ -8,6 +8,7 @@ pipeline {
         choice(name: 'TERRAFORM_APPLY', choices: ['no', 'yes'], description: 'Choose an action')
         choice(name: 'TERRAFORM_DESTROY', choices: ['no', 'yes'], description: 'Choose an action')
         string(name: 'REGION', defaultValue: 'ap-south-1')
+        choice(name: 'Ansible_Install', choices: ['no', 'yes'], description: 'Choose an action')
     }
     stages{
         stage('checking the software'){
@@ -16,6 +17,7 @@ pipeline {
                 terraform version
                 packer version
                 docker ps 
+                ansible --version
                 '''
             }
         }
@@ -60,6 +62,14 @@ pipeline {
             steps {
                 sh 'terraform destory --auto-approve'
             }
+        }
+        stage('Ansible_Build'){
+                    when {
+                    expression { return params.Ansible_Install =='yes'}
+                }
+                steps {
+                    sh 'ansible -i hosts.ini all -m ping'
+                }
         }
     }
 }
