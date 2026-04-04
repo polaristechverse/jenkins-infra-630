@@ -68,7 +68,7 @@ pipeline {
                     expression { return params.Ansible_Install =='yes'}
                 }
                 steps {
-                    sh 'ansible -i hosts.ini all -m ping'
+                    sh 'ansible -i inventory/hosts.ini all -m ping'
                 }
         }
     }
