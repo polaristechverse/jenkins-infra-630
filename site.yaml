@@ -3,7 +3,6 @@
   become: yes
   roles:
     - common
-    - docker_runtime
     - kube_packages
 
 - name: initialize master

@@ -69,6 +69,8 @@ pipeline {
                 }
                 steps {
                     sh 'ansible -i inventory/hosts.ini all -m ping'
+                    sh 'ansible-playbook -i inventory/hosts.ini site.yaml --syntax-check'
+                    sh 'ansible-playbook -i inventory/hosts.ini site.yaml --check'
                 }
         }
     }
