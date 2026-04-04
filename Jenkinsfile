@@ -8,6 +8,7 @@ pipeline {
         choice(name: 'TERRAFORM_APPLY', choices: ['no', 'yes'], description: 'Choose an action')
         choice(name: 'TERRAFORM_DESTROY', choices: ['no', 'yes'], description: 'Choose an action')
         string(name: 'REGION', defaultValue: 'ap-south-1')
+        choice(name: 'Ansible_Check', choices: ['no', 'yes'], description: 'Choose an action')
         choice(name: 'Ansible_Install', choices: ['no', 'yes'], description: 'Choose an action')
     }
     stages{
@@ -65,12 +66,20 @@ pipeline {
         }
         stage('Ansible_Build'){
                     when {
-                    expression { return params.Ansible_Install =='yes'}
+                    expression { return params.Ansible_Check =='yes'}
                 }
                 steps {
                     sh 'ansible -i inventory/hosts.ini all -m ping'
                     sh 'ansible-playbook -i inventory/hosts.ini site.yaml --syntax-check'
                     sh 'ansible-playbook -i inventory/hosts.ini site.yaml --check'
+                }
+        }
+         stage('Ansible_install'){
+                    when {
+                    expression { return params.Ansible_Install =='yes'}
+                }
+                steps {
+                    sh 'ansible-playbook -i inventory/hosts.ini site.yaml'
                 }
         }
     }

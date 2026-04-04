@@ -12,7 +12,7 @@
     - master_init
 
 - name: join workers
-  hosts: kubernetes_workers
+  hosts: kubernetes_worker
   become: yes
   roles:
     - worker_join
