@@ -81,7 +81,7 @@ resource "aws_security_group" "demofunctionssg" {
 }
 
 resource "aws_instance" "JenkinsInstance" {
-  count                       = var.env == "Dev" ? 2 : 1
+  count                       = var.env == "Dev" ? 3 : 1
   ami                         = var.ami
   key_name                    = var.key_name
   instance_type               = var.type

@@ -41,7 +41,15 @@
                 "curl https://get.docker.com | bash",
                 "curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip ",
                 "unzip awscliv2.zip",
-                "sudo ./aws/install"
+                "sudo ./aws/install",
+                "sudo useradd -m ansibleadmin --shell /bin/bash",
+                "sudo usermod -aG sudo ansibleadmin",
+                "echo 'ansibleadmin ALL=(ALL) NOPASSWD:ALL'|sudo tee -a /etc/sudoers",
+                "sudo mkdir -p /home/ansibleadmin/.ssh",
+                "sudo touch /home/ansibleadmin/.ssh/authorized_keys",
+                "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5i36pP4qT58DuHRHfjDZKKrWAu1lTO9/DOY4JH52tfNM43MADa+vb0Zm91ZrQa5MEFqsP75yt+4OOBIBJlMk8OO5Bg9PH0dTsiu62Q1V0n+Kxxm0C8jv//T7bCMfvPS9Ka/rce5i2Vab37rDW9zaB6ZoP8N4cziHDEzFE+heouVpNOvar+Tw1K8jnLX66RIYJTyzqjr1qq0smRtESRIc/xFKcgdAxWXkKpjOe8gCRDDbvwsWlHyybORkO+0JzGld8+6MVC/uF6yPC8B/D3UcZ3kGOfXH//lMa3qC14b1Z80+6kwef9ZHvNTTtGE4uZO4eYdspYtJrHq61kmwmWBoT' |sudo tee /home/ansibleadmin/.ssh/authorized_keys",
+                "sudo chown -R ansibleadmin /home/ansibleadmin/"
+
             ]
         }
     ],

@@ -36,7 +36,7 @@ pipeline {
         }
         stage('capture the latest ami'){
             steps {
-                latestami()
+                latestami("ap-south-1")
             }
         }
         stage('Terraform_Plan') {
