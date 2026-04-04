@@ -5,4 +5,4 @@ az               = ["ap-south-2a", "ap-south-2b", "ap-south-2c"]
 env              = "Dev"
 ami              = 
 key_name         = "Desktop_key"
-type             = "t3.micro"
+type             = "t3.medium"

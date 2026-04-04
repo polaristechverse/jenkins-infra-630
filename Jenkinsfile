@@ -7,6 +7,7 @@ pipeline {
         choice(name: 'PACKER_BUILD', choices: ['no', 'yes'], description: 'Choose an action')
         choice(name: 'TERRAFORM_APPLY', choices: ['no', 'yes'], description: 'Choose an action')
         choice(name: 'TERRAFORM_DESTROY', choices: ['no', 'yes'], description: 'Choose an action')
+        string(name: 'REGION', defaultValue: 'ap-south-1')
     }
     stages{
         stage('checking the software'){
@@ -36,7 +37,7 @@ pipeline {
         }
         stage('capture the latest ami'){
             steps {
-                latestami("ap-south-2")
+                latestami(params.REGION)
             }
         }
         stage('Terraform_Plan') {
