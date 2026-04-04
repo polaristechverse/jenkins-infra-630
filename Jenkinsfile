@@ -23,7 +23,7 @@ pipeline {
                     expression { return params.PACKER_BUILD =='yes'}
                 }
             steps{
-                packerBuild()
+                packerbuild()
             }
         }
         stage('capture amiid'){
@@ -36,7 +36,7 @@ pipeline {
         }
         stage('capture the latest ami'){
             steps {
-                latestami("ap-south-1")
+                latestami("ap-south-2")
             }
         }
         stage('Terraform_Plan') {
